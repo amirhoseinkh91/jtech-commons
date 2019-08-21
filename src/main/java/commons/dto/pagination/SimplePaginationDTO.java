@@ -1,6 +1,8 @@
 package commons.dto.pagination;
 
 import lombok.Setter;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 /**
  * @Author amir
@@ -9,16 +11,21 @@ import lombok.Setter;
 @Setter
 public class SimplePaginationDTO implements Pagination {
 
-    private long start;
-    private long len;
+    private int start;
+    private int len;
 
     @Override
-    public long getStart() {
+    public int getStart() {
         return start;
     }
 
     @Override
-    public long getLen() {
+    public int getLen() {
         return len;
+    }
+
+    @Override
+    public Pageable toPageable() {
+        return PageRequest.of(start, len);
     }
 }
