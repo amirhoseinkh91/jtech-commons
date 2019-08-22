@@ -1,24 +1,20 @@
 package commons.controller;
 
 import commons.dto.FullDTO;
-import commons.dto.pagination.Pagination;
+import commons.pagination.PageResult;
 import commons.result.Result;
-import commons.result.SimpleTabularResult;
-import org.springframework.data.repository.CrudRepository;
-
-import javax.ws.rs.BeanParam;
-import java.util.Collection;
-import java.util.List;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
  * @Author amir
  * @CreatedAt 8/18/19
  */
-public interface CrudController<R extends CrudRepository, D extends FullDTO> {
+public interface CrudController<R extends PagingAndSortingRepository, D extends FullDTO> {
 
     R getRepositoryInstance();
 
-    Result<SimpleTabularResult<D>> getAll(@BeanParam Pagination pagination);
+    Result<PageResult<D>> getAll(Pageable pageable);
 
     Result<D> findById(Long id);
 
@@ -27,6 +23,5 @@ public interface CrudController<R extends CrudRepository, D extends FullDTO> {
     Result<D> add(D d);
 
     Result<D> update(Long id, D d);
-
 
 }
