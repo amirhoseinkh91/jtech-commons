@@ -6,6 +6,9 @@ import commons.result.Result;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.core.Context;
+
 /**
  * @Author amir
  * @CreatedAt 8/18/19
@@ -14,14 +17,14 @@ public interface CrudController<R extends PagingAndSortingRepository, D extends 
 
     R getRepositoryInstance();
 
-    Result<PageResult<D>> getAll(Pageable pageable);
+    Result<PageResult<D>> getAll(Pageable pageable, @Context HttpServletRequest servletRequest);
 
-    Result<D> findById(Long id);
+    Result<D> findById(Long id, @Context HttpServletRequest servletRequest);
 
-    Result<Boolean> deleteById(Long id);
+    Result<Boolean> deleteById(Long id, @Context HttpServletRequest servletRequest);
 
-    Result<D> add(D d);
+    Result<D> add(D d, @Context HttpServletRequest servletRequest);
 
-    Result<D> update(Long id, D d);
+    Result<D> update(Long id, D d, @Context HttpServletRequest servletRequest);
 
 }
