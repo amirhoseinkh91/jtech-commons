@@ -1,5 +1,6 @@
 package commons.dto.util;
 
+import commons.dto.CloneableLoaderDTO;
 import commons.dto.LoaderDTO;
 import commons.dto.SaverDTO;
 
@@ -78,6 +79,24 @@ public class DtoUtil {
             }
             return result;
         }
+    }
+
+    public static <E, D extends CloneableLoaderDTO<E>> Collection<D> loadDtoCollection(D d, Collection<E> entities) {
+        if (entities != null) {
+            try {
+
+                Collection<D> result = new HashSet<>();
+                for (E e : entities) {
+                    D dto = (D) d.clone();
+                    dto.loadFrom(e);
+                    result.add(dto);
+                }
+                return result;
+            } catch (CloneNotSupportedException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 
 }
