@@ -67,6 +67,15 @@ public class DtoUtil {
         }
     }
 
+    public static <E, D extends LoaderDTO<E>> D createAndLoadDto(D d, E object) {
+        if (object == null) {
+            return null;
+        } else {
+            d.loadFrom(object);
+            return d;
+        }
+    }
+
     public static <E, D extends LoaderDTO<E>> Collection<D> loadDtoCollection(Class<D> dtoClass, Collection<E> entities) {
         if (entities == null) {
             return null;
