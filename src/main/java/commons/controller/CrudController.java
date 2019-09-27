@@ -5,8 +5,8 @@ import commons.pagination.PageResult;
 import commons.result.Result;
 import org.springframework.data.domain.Pageable;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.HttpHeaders;
 
 /**
  * @Author amir
@@ -14,14 +14,14 @@ import javax.ws.rs.core.HttpHeaders;
  */
 public interface CrudController<D extends FullDTO> {
 
-    Result<PageResult<D>> getAll(Pageable pageable, @Context HttpHeaders httpHeaders);
+    Result<PageResult<D>> getAll(Pageable pageable, @Context HttpServletRequest servletRequest);
 
-    Result<D> findById(Long id, @Context HttpHeaders httpHeaders);
+    Result<D> findById(Long id, @Context HttpServletRequest servletRequest);
 
-    Result<Boolean> deleteById(Long id, @Context HttpHeaders httpHeaders);
+    Result<Boolean> deleteById(Long id, @Context HttpServletRequest servletRequest);
 
-    Result<D> add(D d, @Context HttpHeaders httpHeaders);
+    Result<D> add(D d, @Context HttpServletRequest servletRequest);
 
-    Result<D> update(Long id, D d, @Context HttpHeaders httpHeaders);
+    Result<D> update(Long id, D d, @Context HttpServletRequest servletRequest);
 
 }

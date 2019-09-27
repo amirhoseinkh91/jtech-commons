@@ -3,23 +3,24 @@ package commons.controller;
 import commons.dto.FullDTO;
 import commons.exception.EntityNotFoundException;
 import commons.result.Result;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.ws.rs.core.HttpHeaders;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @Author amir
  * @CreatedAt 9/27/19
  */
-public abstract class AbstractCrudController<D extends FullDTO, R extends JpaRepository> implements CrudController<D> {
+@RestController
+public abstract class AbstractCrudController<D extends FullDTO> implements CrudController<D> {
 
-    protected abstract R getRepositoryInstance();
+    @Value("${language.header.name}")
+    private String languageHeaderName;
 
-    protected abstract Class<D> getFullDtoClass();
-
-    protected Long getLanguageId(HttpHeaders httpHeaders) {
-        return Long.parseLong(httpHeaders.getRequestHeaders().getFirst("${language.header.name}").trim());
+    protected Long getLanguageId(HttpServletRequest servletRequest) {
+        return (long) servletRequest.getIntHeader(languageHeaderName);
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
