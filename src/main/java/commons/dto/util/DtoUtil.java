@@ -4,13 +4,13 @@ import commons.dto.CloneableLoaderDTO;
 import commons.dto.LoaderDTO;
 import commons.dto.SaverDTO;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
 
 /**
- * @Author amir
- * @CreatedAt 8/19/19
+ * @author amir
+ * @since 8/19/19
  */
 public class DtoUtil {
 
@@ -80,9 +80,9 @@ public class DtoUtil {
         if (entities == null) {
             return null;
         } else {
-            Collection<D> result = new HashSet<>();
+            Collection<D> result = new ArrayList<>();
             for (E e : entities) {
-                D dto = (D) createDto(dtoClass);
+                D dto = createDto(dtoClass);
                 dto.loadFrom(e);
                 result.add(dto);
             }
@@ -94,7 +94,7 @@ public class DtoUtil {
         if (entities != null) {
             try {
 
-                Collection<D> result = new HashSet<>();
+                Collection<D> result = new ArrayList<>();
                 for (E e : entities) {
                     D dto = (D) d.clone();
                     dto.loadFrom(e);
